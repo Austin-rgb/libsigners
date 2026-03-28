@@ -1,3 +1,5 @@
+use std::env;
+
 use crate::common::Claims;
 use crate::signer_core::Signer;
 use anyhow::Result;
@@ -11,9 +13,10 @@ pub struct HS256Signer {
 }
 
 impl HS256Signer {
-    pub fn new(secret: String) -> Self {
+    pub fn new(aud: String) -> Self {
         let mut vald = Validation::new(Algorithm::HS256);
-        vald.validate_aud = false;
+        vald.set_audience(&[aud]);
+        let secret = env::var("SECRET").expect("env var SECRET not set");
         HS256Signer {
             secret,
             header: Header::new(Algorithm::HS256),
