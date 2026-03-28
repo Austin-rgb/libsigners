@@ -12,10 +12,12 @@ pub struct HS256Signer {
 
 impl HS256Signer {
     pub fn new(secret: String) -> Self {
+        let mut vald = Validation::new(Algorithm::HS256);
+        vald.validate_aud = false;
         HS256Signer {
             secret,
             header: Header::new(Algorithm::HS256),
-            validation: Validation::new(Algorithm::HS256),
+            validation: vald,
         }
     }
 }
