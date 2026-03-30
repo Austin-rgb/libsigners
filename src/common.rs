@@ -1,6 +1,7 @@
 use chrono::Utc;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Claims {
     pub as_user: String,

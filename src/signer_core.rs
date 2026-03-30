@@ -1,9 +1,8 @@
 use anyhow::Result;
-use serde::{Serialize, de::DeserializeOwned};
+
+use crate::Claims;
 
 pub trait Signer: Send + Sync + 'static {
-    type Claims: Serialize + DeserializeOwned + Send + Sync;
-
-    fn sign(&self, claims: &Self::Claims) -> Result<String>;
-    fn validate(&self, token: &str) -> Result<Self::Claims>;
+    fn sign(&self, claims: &Claims) -> Result<String>;
+    fn validate(&self, token: &str) -> Result<Claims>;
 }

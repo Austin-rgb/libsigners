@@ -12,6 +12,10 @@ pub struct HS256Signer {
     validation: Validation,
 }
 
+struct Conf {
+    secret: String,
+}
+
 impl HS256Signer {
     pub fn new(aud: String) -> Self {
         let mut vald = Validation::new(Algorithm::HS256);
@@ -26,8 +30,6 @@ impl HS256Signer {
 }
 
 impl Signer for HS256Signer {
-    type Claims = Claims;
-
     fn sign(&self, claims: &Claims) -> Result<String> {
         Ok(encode(
             &self.header,
@@ -42,6 +44,7 @@ impl Signer for HS256Signer {
             &DecodingKey::from_secret(self.secret.as_bytes()),
             &self.validation,
         )?;
+
         Ok(data.claims)
     }
 }
