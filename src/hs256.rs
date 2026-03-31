@@ -1,7 +1,6 @@
 use std::env;
 
-use crate::common::Claims;
-use crate::signer_core::Signer;
+use crate::{Sign, Validate, common::Claims};
 use anyhow::Result;
 use jsonwebtoken::{Algorithm, DecodingKey, EncodingKey, Header, Validation, decode, encode};
 
@@ -29,7 +28,7 @@ impl HS256Signer {
     }
 }
 
-impl Signer for HS256Signer {
+impl Sign for HS256Signer {
     fn sign(&self, claims: &Claims) -> Result<String> {
         Ok(encode(
             &self.header,
@@ -37,7 +36,8 @@ impl Signer for HS256Signer {
             &EncodingKey::from_secret(self.secret.as_bytes()),
         )?)
     }
-
+}
+impl Validate for HS256Signer {
     fn validate(&self, token: &str) -> Result<Claims> {
         let data = decode::<Claims>(
             token,
