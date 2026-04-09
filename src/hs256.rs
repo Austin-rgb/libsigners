@@ -11,10 +11,6 @@ pub struct HS256Signer {
     validation: Validation,
 }
 
-struct Conf {
-    secret: String,
-}
-
 impl HS256Signer {
     pub fn new(aud: String) -> Self {
         let mut vald = Validation::new(Algorithm::HS256);

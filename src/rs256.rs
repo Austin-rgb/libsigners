@@ -6,11 +6,13 @@ use anyhow::Result;
 use jsonwebtoken::{Algorithm, DecodingKey, EncodingKey, Header, Validation, decode, encode};
 use std::env;
 
+#[derive(Clone)]
 pub struct RS256Signer {
     enc_key: EncodingKey,
     header: Header,
 }
 
+#[derive(Clone)]
 pub struct RS256Validator {
     dec_key: DecodingKey,
     validation: Validation,
