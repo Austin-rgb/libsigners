@@ -4,7 +4,6 @@ use crate::{
 };
 use anyhow::Result;
 use jsonwebtoken::{Algorithm, DecodingKey, EncodingKey, Header, Validation, decode, encode};
-use std::env;
 
 #[derive(Clone)]
 pub struct RS256Signer {
@@ -19,8 +18,7 @@ pub struct RS256Validator {
 }
 
 impl RS256Signer {
-    pub fn default(aud: String) -> Self {
-        let private_key = env::var("RSA_PRIVATE_KEY").expect("could not get RSA_PRIVATE_KEY value");
+    pub fn default(aud: String, private_key:String) -> Self {
         RS256Signer::new(private_key, aud)
     }
 
@@ -37,8 +35,7 @@ impl RS256Signer {
 }
 
 impl RS256Validator {
-    pub fn default(aud: String) -> Self {
-        let public_key = env::var("RSA_PUBLIC_KEY").expect("could not get RSA_PUBLIC_KEY");
+    pub fn default(aud: String, public_key:String) -> Self {
         RS256Validator::new(public_key, aud)
     }
 
