@@ -3,6 +3,24 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Identity {
+    pub aud: String,
+    pub iat: usize,
+    pub exp: usize,
+    pub sub: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Authority {
+    pub iat: usize,
+    pub exp: usize,
+    pub role: u128,
+    pub aud: String,
+    pub sub: String,
+    pub rcpt: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Claims {
     pub as_user: String,
     pub user_id: String,
